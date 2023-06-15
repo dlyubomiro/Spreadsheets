@@ -15,6 +15,8 @@ public:
 	void saveAs() const;
 	void edit();
 	void print() const;
+	void close();
+
 };
 
 Table::Table() : count(0), capacity(8)

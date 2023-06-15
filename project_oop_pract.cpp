@@ -13,10 +13,6 @@ int main()
 	std::ifstream ifs("test1");
 	t.open(ifs);
 	t.print();
-	t.edit();
-	std::ofstream ofs("test1");
-	t.save(ofs);
-	t.saveAs();
 	
 
 
