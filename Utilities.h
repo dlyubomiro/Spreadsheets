@@ -11,3 +11,5 @@ size_t getDigitsCountOfDouble(double num);
 char* convertToString(double num);
 
 double convertStringToDouble(const char* number);
+
+void getDigitsAfterComma(double num, size_t& count);

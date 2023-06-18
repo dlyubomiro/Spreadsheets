@@ -1,5 +1,7 @@
 #include "Utilities.h"
 #include <string.h>
+#include <cmath>
+#pragma warning (disable:4996)
 
 int containtsOnlyNumbers(const char* text)
 {
@@ -97,13 +99,54 @@ size_t getDigitsCountOfDouble(double num)
 	return counter;
 }
 
+void getDigitsAfterComma(double num, size_t& count)
+{
+	while (abs(num) >= 0.00001)
+	{
+		count++;
+		num *= 10;
+		num -= int(num);
+	}
+}
+
 char* convertToString(double num)
 {
-	char* doubleInStr = new char[getDigitsCountOfDouble(num) + 1];
+	char doubleInStr[50];
+	doubleInStr[0] = '\0';
+	size_t counter = 0;
 
 	if (num < 0)
-		doubleInStr[0] = '-';
-	return doubleInStr; //negotovo
+		doubleInStr[counter++] = '-';
+
+	int intPart = (int)num;
+	if (intPart == 0)
+	{
+		doubleInStr[counter++] = '0';
+		doubleInStr[counter++] = '.';
+	}
+	else
+	{
+		strcat(doubleInStr, convertIntToString(intPart));
+		counter += strlen(convertIntToString(intPart));
+	}
+	doubleInStr[counter++] = '.';
+	
+	num -= intPart;
+
+	if (abs(num) < 0.00001)
+	{
+		doubleInStr[--counter] = '\0';
+		return doubleInStr;
+	}
+
+	doubleInStr[counter++] = '\0';
+
+
+	size_t count = 0;
+	getDigitsAfterComma(num, count);
+	num *= pow(10, count);
+	strcat(doubleInStr, convertIntToString(num));
+	return doubleInStr;
 }
 
 double convertStringToDouble(const char* number)
