@@ -2,7 +2,7 @@
 #include "Cell.h"
 #include "MyString.h"
 #include "StringView.h"
-
+#include "Utilities.h"
 
 class CellOfText : public Cell {
 	MyString content;
@@ -10,14 +10,15 @@ class CellOfText : public Cell {
 public:
 	CellOfText() = default;
 	CellOfText(const char*);
-	MyString getData() const;
+	MyString getData() const override;
+	double getValueInDouble() const override;
 
 	Cell* clone() const override;
 	void save(std::ofstream& ofs) const override;
 	void print() const override;
 };
 
-MyString CellOfText::getData() const
+MyString CellOfText:: getData() const
 {
 	return content;
 }
@@ -53,14 +54,15 @@ static void replaceSymbol(MyString& text, const char* torepl, char replwith , si
 CellOfText::CellOfText(const char* text)
 {
 	MyString txt;
-	if (strcmp(text, " ") == 0 && strcmp(text, "") == 0)
+	if (strcmp(text, " ") == 0 || strcmp(text, "") == 0)
 	{
-		txt += text;
+		txt += MyString(text);
 	}
 	else 
 	{
+		txt += MyString(text);
 		removeQuotationMarks(txt);
-		txt += text;
+		
 	}
 
 	int indexQuestionMark = containsString(txt, "\"");
@@ -72,23 +74,6 @@ CellOfText::CellOfText(const char* text)
 
 	content = txt;
 }
-
-
-/*
-void CellOfText::readCell(std::ifstream& ifs) {
-
-	 if (ifs.is_open())
-		 throw std::exception("Cannot open the file!");
-
-	 ifs >> content;
-}
-void CellOfText::writeCell(std::ofstream& ofs){
-
-	 if (ofs.is_open())
-		 throw std::exception("Cannot open the file!");
-
-	 ofs << content;
- }*/
 
 void CellOfText::print() const
 {
@@ -104,4 +89,12 @@ Cell* CellOfText::clone() const
 void CellOfText::save(std::ofstream& ofs) const
 {
 	ofs << '\"' << content   <<'\"';
+}
+
+double CellOfText::getValueInDouble() const
+{
+	if (containtsOnlyNumbers(content.c_str()) == 0 || containtsOnlyNumbers(content.c_str()) == 1)
+		return convertStringToDouble(content.c_str());
+
+	return 0;
 }

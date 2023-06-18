@@ -1,26 +1,20 @@
 #pragma once
 #include "Cell.h"
+#include "Utilities.h"
 
 class Formula : public Cell{
 	MyString formula;
 
-	double* numbers;
-	size_t countNums;
-	size_t capNums;
-	char* operands;
-	size_t countOp;
-	size_t capOp;
-	
-	void resizeNumbers();
-	void resizeOp();
 public:
 	Formula(const char* text);
 	void setFormula(const char* text);
 
-	double calculate(const MyString& formula);
+	double calculate(const MyString& formula) const;
 	void print() const override;
 	void save(std::ofstream& ofs) const override;
 	Cell* clone() const override;
+	MyString getData() const override;
+	double getValueInDouble() const override;
 };
 
 Formula::Formula(const char* text)
@@ -36,17 +30,18 @@ void Formula::setFormula(const char* text)
 	{
 		if (formula[i] >= '0' && formula[i] <= '9')
 			(currentNum *= 10) += formula[i];
-		else
+		/*else
 		{
 			numbers[countNums++] = currentNum;
 			currentNum = 0;
 			operands[countOp++] = formula[i];
-		}
+		}*/
 	}
 }
 
 void Formula::print() const
 {
+
 	 std::cout << formula;
 }
 
@@ -61,23 +56,58 @@ void Formula::save(std::ofstream& ofs) const
 	ofs << formula;
 }
 
-static bool conatinsOnlyNumbers(const MyString& formula)
+MyString removeEquationSign(const MyString& formula)
 {
-	for (int i = 0; i < formula.length();i++)
-	{
-		if (formula[i] >= 'A' && formula[i] <= 'Z')
-			return false;
-	}
-	return true;
+	return formula.substr(1, formula.length());
 }
 
-double Formula::calculate(const MyString& formula)
+int getOperationIndex(const MyString& str)
 {
-
-	double res = 0;
-	for (int i = 0; i < formula.length(); i++)
+	for (size_t i = 0; i < str.length(); i++)
 	{
-		if(formula[i]>= '0' && formula[i] <= '0')
-
+		if (str[i] == '*' || str[i] == '/' || str[i] == '-' || str[i] == '+' || str[i] == '^')
+			return i;
 	}
+	return -1;
+}
+
+double Formula::calculate(const MyString& formula) const
+{
+	MyString toCalc = formula.substr(1, formula.length());
+	double res = 0;
+	int opInd = getOperationIndex(toCalc);
+	char op = toCalc[opInd];
+	double lhs = convertStringToDouble(toCalc.substr(1, opInd).c_str());
+	double rhs = convertStringToDouble(toCalc.substr(opInd, toCalc.length()).c_str());
+
+	switch (op)
+	{
+	case '+':
+		return lhs + rhs;
+
+	case '*':
+		return lhs * rhs;
+
+	case '/':			
+		return lhs / rhs;
+
+	case '^':
+		return pow(lhs,rhs);
+
+	case '-':
+		return lhs - rhs;
+
+	default:
+		break;
+	}
+}
+
+MyString Formula::getData() const
+{
+	return MyString(formula);
+}
+
+double Formula::getValueInDouble() const
+{
+	return calculate(formula);
 }

@@ -15,8 +15,10 @@ public:
 	void saveAs() const;
 	void edit();
 	void print() const;
-	void close();
-
+	//void openToRead(const char* filename) const;
+	//void openToWrite(const char* filename) const;
+	void close(std::ifstream& ifs)const;
+	void close(std::ofstream& ofs)const;
 };
 
 Table::Table() : count(0), capacity(8)
@@ -54,6 +56,7 @@ void Table::save(std::ofstream& ofs) const
 		rows[i].save(ofs);
 	}
 }
+
 void Table::print() const
 {
 	for (size_t i = 0; i < count; i++)
@@ -68,6 +71,7 @@ void Table::print() const
 		std::cout << std::endl;
 	}
 }
+
 void Table::saveAs() const
 {
 	std::cout << "Please, enter new filename: ";
@@ -92,3 +96,30 @@ void Table::edit()
 
 	rows[row].edit(col,newContent);
 }
+
+void close(std::ifstream& ifs) 
+{
+	ifs.close();
+}
+
+void close(std::ofstream& ofs)
+{
+	ofs.close();
+}
+
+/*
+std::ifstream& openToRead(const char* filename) 
+{
+	std::ifstream ifs(filename);
+	if (!ifs.is_open())
+		throw std::exception("Error!");
+	return ifs;
+}
+
+std::ofstream& openToWrite(const char* filename)
+{
+	std::ofstream ofs(filename);
+	if (!ofs.is_open())
+		throw std::exception("Error!");
+	return ofs;
+}*/

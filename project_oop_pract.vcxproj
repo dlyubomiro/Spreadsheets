@@ -132,6 +132,7 @@
     <ClCompile Include="project_oop_pract.cpp" />
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="StringView.cpp" />
+    <ClCompile Include="Utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cell.h" />
@@ -140,6 +141,7 @@
     <ClInclude Include="CellOfText.h" />
     <ClInclude Include="CellsFactory.h" />
     <ClInclude Include="Formula.h" />
+    <ClInclude Include="Utilities.h" />
     <ClInclude Include="MyString.h" />
     <ClInclude Include="Row.h" />
     <ClInclude Include="StringView.h" />

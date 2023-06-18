@@ -1,5 +1,6 @@
 #pragma once
 #include "Cell.h"
+#include "Utilities.h"
 #include <iostream>
 
 class CellOfDouble : public Cell {
@@ -8,11 +9,11 @@ class CellOfDouble : public Cell {
 public:
 	CellOfDouble() = default;
 	CellOfDouble(const char* text);
-	//void readCell(std::ifstream& ifs) override;
-	//void writeCell(std::ofstream& ofs) override;
 
 	void setContent(const char* text);
-	double getValue() const;
+	double getValueInDouble() const override;
+
+	MyString getData() const override;
 	void print() const override;
 	void save(std::ofstream& ofs) const override;
 	Cell* clone() const override;
@@ -26,6 +27,7 @@ static size_t getSymbolIndex(const char* str, char ch)
 			return i;
 		str++;
 	}
+	throw std::logic_error("Invalid index");
 }
 
 void CellOfDouble::setContent(const char* text)
@@ -44,16 +46,18 @@ void CellOfDouble::setContent(const char* text)
 	content = mult * result;
 }
 
-CellOfDouble::CellOfDouble(const char* text) {
+CellOfDouble::CellOfDouble(const char* text) 
+{
 	setContent(text);
 };
 
-double CellOfDouble::getValue() const
+double CellOfDouble::getValueInDouble() const 
 {
 	return content; 
 }
 
-void CellOfDouble::print() const {
+void CellOfDouble::print() const 
+{
 	std::cout << content;
 }
 
@@ -63,8 +67,12 @@ Cell* CellOfDouble::clone() const
 	return newCell;
 }
 
-
 void CellOfDouble::save(std::ofstream& ofs) const 
 {
 	ofs << content;
+}
+
+MyString CellOfDouble:: getData() const
+{
+	return MyString("");
 }

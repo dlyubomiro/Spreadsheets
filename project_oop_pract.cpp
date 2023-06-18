@@ -5,17 +5,21 @@
 #include <fstream>
 
 #include "Table.h"
+#include "Utilities.h"
 //#include "CellOfText.h"
 
 int main()
 {
+	
 	Table t;
 	std::ifstream ifs("test1");
 	t.open(ifs);
 	t.print();
+	/*
+	CellOfInt a("-123");
+	std::cout <<a.getData().c_str();
+	*/
 	
-
-
 }
 
 
