@@ -127,11 +127,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CellOfDouble.cpp" />
     <ClCompile Include="CellOfInt.cpp" />
+    <ClCompile Include="CellOfText.cpp" />
+    <ClCompile Include="CellsFactory.cpp" />
+    <ClCompile Include="Formula.cpp" />
     <ClCompile Include="MyString.cpp" />
     <ClCompile Include="project_oop_pract.cpp" />
     <ClCompile Include="Cell.cpp" />
+    <ClCompile Include="Row.cpp" />
     <ClCompile Include="StringView.cpp" />
+    <ClCompile Include="Table.cpp" />
     <ClCompile Include="Utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
