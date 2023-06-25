@@ -1,4 +1,5 @@
 #include "CellOfText.h"
+
 MyString CellOfText::getData() const
 {
 	return content;
@@ -43,20 +44,19 @@ CellOfText::CellOfText(const char* text)
 	{
 		txt += MyString(text);
 		removeQuotationMarks(txt);
-
 	}
 
 	int indexQuestionMark = containsString(txt, "\"");
-	/*while (indexQuestionMark != -1)
+	while (indexQuestionMark != -1)
 	{
-		replaceSymbol(txt, "\"", '"', indexQuestionMark);
+		replaceSymbol(txt, "\"", '\"', indexQuestionMark);
 		indexQuestionMark = containsString(txt, "\"");
-	}*/
+	}
 
 	content = txt;
 }
 
-void CellOfText::print() const
+void CellOfText::print()
 {
 	std::cout << content.c_str();
 }
@@ -79,6 +79,5 @@ double CellOfText::getValueInDouble() const
 
 	return 0;
 }
-
 
 

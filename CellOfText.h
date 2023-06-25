@@ -15,5 +15,5 @@ public:
 
 	Cell* clone() const override;
 	void save(std::ofstream& ofs) const override;
-	void print() const override;
+	void print() override;
 };

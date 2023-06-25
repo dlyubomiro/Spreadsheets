@@ -1,4 +1,5 @@
 #include "Utilities.h"
+#include "MyString.h"
 #include <string.h>
 #include <cmath>
 #pragma warning (disable:4996)
@@ -164,20 +165,20 @@ double convertStringToDouble(const char* number)
 		number++;
 	}
 
-	while (*number!='.' && *number)
+	while (*number != '.' && *number)
 	{
 		(res *= 10) += *number - '0';
 		number++;
 	}
-	
-	if(*number == '\0')
+
+	if (*number == '\0')
 		return res *= mult;
 
 	number++;
 	double fractionalPart = 0.1;
 	while (*number)
 	{
-		res +=( * number - '0')* fractionalPart;
+		res += (*number - '0') * fractionalPart;
 		fractionalPart *= 0.1;
 		number++;
 	}

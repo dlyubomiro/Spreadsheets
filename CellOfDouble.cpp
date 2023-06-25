@@ -37,7 +37,7 @@ double CellOfDouble::getValueInDouble() const
 	return content;
 }
 
-void CellOfDouble::print() const
+void CellOfDouble::print()
 {
 	std::cout << content;
 }

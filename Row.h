@@ -22,8 +22,10 @@ public:
 	~Row();
 	void readRow(std::ifstream& ifs);
 	void save(std::ofstream& ofs) const;
-	void edit(size_t col, char* new_content);
+	void edit(size_t col,const char* new_content);
 	void printRow() const;
+	double getValueFromCell(size_t i) const;
+	//void calculateFormulas(Table& table);
 	size_t getCount() const;
 	void removeSpaces( char* value);
 };

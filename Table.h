@@ -2,6 +2,7 @@
 #include "Row.h"
 
 class Table{
+public:
 	Row* rows;
 	size_t count;
 	size_t capacity;
@@ -10,13 +11,14 @@ class Table{
 	void resize();
 public:
 	Table();
-	void open(std::ifstream& ifs);
-	void save(std::ofstream& ofs) const;
+	void open(const char* filename);
+	void save(const char* filename) const;
 	void saveAs() const;
 	void edit();
 	void print() const;
+	void calculateFormulas();
 	//void openToRead(const char* filename) const;
 	//void openToWrite(const char* filename) const;
-	void close(std::ifstream& ifs)const;
-	void close(std::ofstream& ofs)const;
+	void close(std::ifstream& ifs) const;
+	void close(std::ofstream& ofs) const;
 };

@@ -31,7 +31,7 @@ Cell* CellOfInt::clone() const
 	return newCell;
 }
 
-void CellOfInt::print() const
+void CellOfInt::print()
 {
 	std::cout << _content;
 }

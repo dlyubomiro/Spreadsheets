@@ -16,8 +16,12 @@ void Table::resize()
 	capacity *= 2;
 }
 
-void Table::open(std::ifstream& ifs)
+void Table::open(const char* filename)
 {
+	std::ifstream ifs(filename);
+	if (!ifs.is_open())
+		throw std::exception("Cannot open this file!");
+
 	while (!ifs.eof())
 	{
 		Row currentRow;
@@ -29,11 +33,15 @@ void Table::open(std::ifstream& ifs)
 		rows[count++] = currentRow;
 	}
 }
-void Table::save(std::ofstream& ofs) const
+
+void Table::save(const char* filename) const
 {
+	std::ofstream ofs(filename);
 	for (size_t i = 0; i < count; i++)
 	{
 		rows[i].save(ofs);
+		if(i<count-1)
+			ofs << std::endl;
 	}
 }
 
@@ -62,7 +70,7 @@ void Table::saveAs() const
 	if (!ofs.is_open())
 		throw std::exception("Error!");
 
-	save(ofs);
+	save(filename);
 }
 
 void Table::edit()

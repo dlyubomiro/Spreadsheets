@@ -10,7 +10,7 @@ public:
 	void setFormula(const char* text);
 
 	double calculate(const MyString& formula) const;
-	void print() const override;
+	void print() override;
 	void save(std::ofstream& ofs) const override;
 	Cell* clone() const override;
 	MyString getData() const override;

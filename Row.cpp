@@ -97,10 +97,10 @@ void Row::save(std::ofstream& ofs) const
 	for (size_t i = 0; i < count; i++)
 	{
 		cells[i]->save(ofs);
-		if (1 < count - 1)
+		if (i < count - 1)
 			ofs << ",";
 	}
-	ofs << std::endl;
+	
 }
 void  Row::printRow() const
 {
@@ -110,6 +110,12 @@ void  Row::printRow() const
 		cells[i]->print();
 		std::cout << '|';
 	}
+}
+
+
+double Row::getValueFromCell(size_t i) const
+{
+	return cells[i]->getValueInDouble();
 }
 
 void Row::resize()
@@ -165,10 +171,15 @@ void Row::removeSpaces(char* value)
 		strcpy(value, valueWithoutSpaces);
 		delete[] valueWithoutSpaces;
 	}
-
 }
 
-void Row::edit(size_t col, char* new_content) {
+void Row::edit(size_t col,const char* new_content) 
+{
 	delete cells[col];
 	cells[col] = CellsFactory(new_content);
 }
+
+//void Row::calculateFormulas(Table& table)
+//{
+//	
+//}

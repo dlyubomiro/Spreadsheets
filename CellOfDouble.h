@@ -14,7 +14,7 @@ public:
 	double getValueInDouble() const override;
 
 	MyString getData() const override;
-	void print() const override;
+	void print() override;
 	void save(std::ofstream& ofs) const override;
 	Cell* clone() const override;
 };

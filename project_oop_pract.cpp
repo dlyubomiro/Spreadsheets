@@ -6,20 +6,39 @@
 
 #include "Table.h"
 #include "Utilities.h"
-//#include "CellOfText.h"
 
 int main()
 {
-	
-	Table t;
-	std::ifstream ifs("test1");
-	t.open(ifs);
-	t.print();
-	/*
-	CellOfInt a("-123");
-	std::cout <<a.getData().c_str();
-	*/
-	
+	std::cout << "Welcome to Spreadsheets\n";
+	std::cout << "Do you want to open spreadsheet from file? (y - yes/n - no): ";
+	char ch;
+		std::cin >> ch;
+
+	if (ch == 'y')
+	{
+		Table t;
+		std::cout << "Enter filename: ";
+		char filename[50];
+		std::cin >> filename;
+		t.open(filename);
+		t.print();
+		std::cout << "Do you want to edit cell? (y - yes/n - no): ";
+		char ch;
+		std::cin >> ch;
+		if (ch == 'y')
+		{
+			t.edit();
+		}
+		std::cout << "Do you want to save the spreadsheet in this file or in another one? (t - this/o - other): ";
+		char ch2;
+		std::cin >> ch2;
+		if (ch == 't')
+			t.save(filename);
+		else
+			t.saveAs();
+	}
+	else
+		return 1;
 }
 
 

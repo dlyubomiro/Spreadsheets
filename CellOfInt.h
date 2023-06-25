@@ -9,7 +9,7 @@ public:
 	CellOfInt() = default;
 	CellOfInt(const char* content);
 
-	void print() const override;
+	void print() override;
 	Cell* clone() const override;
 
 	MyString getData() const override;
@@ -17,4 +17,5 @@ public:
 
 	void save(std::ofstream& ofs) const override;
 	void setContent(const char* text);
+
 };
